@@ -1,0 +1,105 @@
+/* General Page Style */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #fceabb, #f8b500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Container Styling */
+.container {
+  text-align: center;
+  background-color: #fff8e7;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Responsive Board */
+#board {
+  width: 90vw;
+  max-width: 480px;
+  height: 90vw;
+  max-height: 480px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  margin: 20px auto;
+  border: 3px solid #333;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+/* Cell Styling */
+.cell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-size: 3.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+/* Board Colors */
+.white {
+  background-color: #f0d9b5;
+}
+
+.black {
+  background-color: #b58863;
+  color: white;
+}
+
+/* Visited Cell */
+.visited {
+  background-color: #9ae4a6 !important;
+}
+
+/* Current Knight Cell */
+.knight {
+  background-color: #ffe066 !important;
+  color: black !important;
+  font-size: 5vw;
+}
+
+/* Knight Move Hints - Blue Glowing Circles */
+.hint::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background-color: rgba(0, 183, 255, 0.75); /* bright blue */
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px rgba(0, 183, 255, 0.8);
+  pointer-events: none;
+}
+
+/* Restart Button */
+#restartBtn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ffc107;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+  width: 80%;
+  max-width: 300px;
+}
+
+/* Restart Button Hover Effect */
+#restartBtn:hover {
+  background-color: #ff9800;
+}
