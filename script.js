@@ -168,17 +168,19 @@ restartBtn.onclick = () => {
   updateBoard();
   setupClickHandlers();
 };
+function enableMusicAfterUserAction() {
+  const startMusic = () => {
+    bgMusic.play().then(() => {
+      document.removeEventListener('click', startMusic);
+    }).catch(err => {
+      console.log("Autoplay error:", err);
+    });
+  };
+  document.addEventListener('click', startMusic);
+}
+setupClickHandlers();
+enableMusicAfterUserAction(); // 🔈 Start music when user clicks
 
-// 🎵 Music toggle logic
-musicToggleBtn.onclick = () => {
-  if (bgMusic.muted) {
-    bgMusic.muted = false;
-    musicToggleBtn.textContent = "🔇 Mute Music";
-  } else {
-    bgMusic.muted = true;
-    musicToggleBtn.textContent = "🔊 Unmute Music";
-  }
-};
 
 // Initial setup
 initVisited();
