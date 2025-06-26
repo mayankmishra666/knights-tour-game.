@@ -119,6 +119,7 @@ function setupClickHandlers() {
       if (isLegal) {
         startTimer();
         playSound("moveSound");
+        playBgMusicOnce(); // 🔊 Start background music here too just in case
         moveHistory.push([...knightPos]);
         knightPos = [r, c];
         visited[r][c] = true;
@@ -168,19 +169,32 @@ restartBtn.onclick = () => {
   updateBoard();
   setupClickHandlers();
 };
+
+musicToggleBtn.onclick = () => {
+  if (bgMusic.muted) {
+    bgMusic.muted = false;
+    musicToggleBtn.textContent = "🔇 Mute Music";
+  } else {
+    bgMusic.muted = true;
+    musicToggleBtn.textContent = "🔊 Unmute Music";
+  }
+};
+
+// 🔈 Ensure music starts after first user interaction
 function enableMusicAfterUserAction() {
   const startMusic = () => {
-    bgMusic.play().then(() => {
-      document.removeEventListener('click', startMusic);
-    }).catch(err => {
-      console.log("Autoplay error:", err);
-    });
+    bgMusic.play().catch(err => console.log("Autoplay blocked:", err));
+    document.removeEventListener("click", startMusic);
   };
-  document.addEventListener('click', startMusic);
+  document.addEventListener("click", startMusic);
 }
-setupClickHandlers();
-enableMusicAfterUserAction(); // 🔈 Start music when user clicks
 
+// Extra safe: if music didn't play earlier
+function playBgMusicOnce() {
+  if (bgMusic.paused) {
+    bgMusic.play().catch(() => {});
+  }
+}
 
 // Initial setup
 initVisited();
@@ -188,4 +202,5 @@ createBoard();
 visited[7][0] = true;
 updateBoard();
 setupClickHandlers();
+enableMusicAfterUserAction();
 
