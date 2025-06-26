@@ -4,9 +4,8 @@ const moveCountEl = document.getElementById("moveCount");
 const timerEl = document.getElementById("timer");
 const undoBtn = document.getElementById("undoBtn");
 const restartBtn = document.getElementById("restartBtn");
-const moveSound = document.getElementById("moveSound");
-const winSound = document.getElementById("winSound");
-const failSound = document.getElementById("failSound");
+const musicToggleBtn = document.getElementById("musicToggleBtn");
+const bgMusic = document.getElementById("bgMusic");
 
 const boardSize = 8;
 let knightPos = [7, 0];
@@ -15,6 +14,14 @@ let visited;
 let moveHistory = [];
 let timer = null;
 let seconds = 0;
+
+function playSound(soundId) {
+  const source = document.getElementById(soundId).src;
+  const audio = new Audio(source);
+  audio.play().catch(err => {
+    console.warn(`Sound play error for ${soundId}:`, err);
+  });
+}
 
 function formatTime(sec) {
   const m = Math.floor(sec / 60).toString().padStart(2, "0");
@@ -111,7 +118,7 @@ function setupClickHandlers() {
 
       if (isLegal) {
         startTimer();
-        moveSound.play();
+        playSound("moveSound");
         moveHistory.push([...knightPos]);
         knightPos = [r, c];
         visited[r][c] = true;
@@ -122,11 +129,11 @@ function setupClickHandlers() {
         const nextMoves = getKnightMoves(r, c);
         if (moveCount === 64) {
           statusText.textContent = "🎉 You completed the tour!";
-          winSound.play();
+          playSound("winSound");
           stopTimer();
         } else if (nextMoves.length === 0) {
           statusText.textContent = "❌ No more valid moves. Game Over!";
-          failSound.play();
+          playSound("failSound");
           stopTimer();
         }
       }
@@ -160,6 +167,17 @@ restartBtn.onclick = () => {
   createBoard();
   updateBoard();
   setupClickHandlers();
+};
+
+// 🎵 Music toggle logic
+musicToggleBtn.onclick = () => {
+  if (bgMusic.muted) {
+    bgMusic.muted = false;
+    musicToggleBtn.textContent = "🔇 Mute Music";
+  } else {
+    bgMusic.muted = true;
+    musicToggleBtn.textContent = "🔊 Unmute Music";
+  }
 };
 
 // Initial setup
