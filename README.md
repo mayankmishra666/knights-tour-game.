@@ -1,1 +1,1 @@
-# the-knight
+# knights-tour-game
