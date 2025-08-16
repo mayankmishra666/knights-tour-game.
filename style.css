@@ -97,19 +97,6 @@ body {
   pointer-events: none;
 }
 
-.best-hint::after {
-  content: "";
-  width: 18px;
-  height: 18px;
-  background-color: rgba(0, 200, 80, 0.75);
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 8px rgba(0, 200, 80, 0.8);
-  pointer-events: none;
-}
 
 button {
   margin-top: 10px;
@@ -128,4 +115,5 @@ button {
 button:hover {
   background-color: #ff9800;
 }
+
 
